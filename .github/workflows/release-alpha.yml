@@ -1,0 +1,35 @@
+name: Publish tested Android alpha
+on:
+  workflow_run:
+    workflows: [Android and Tox CI]
+    branches: [main]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - name: Download validated build and corresponding native sources
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+        run: gh run download "$RUN_ID" --name FG-Chat-debug-and-test-evidence --dir artifacts
+      - name: Publish prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILD_NUMBER: ${{ github.event.workflow_run.run_number }}
+          BUILD_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          cp artifacts/android-app/build/outputs/apk/debug/android-app-debug.apk FG-Chat-debug.apk
+          cp artifacts/.native-deps/c-toxcore-v0.2.23.tar.gz .
+          cp artifacts/.native-deps/libsodium-1.0.22.tar.gz .
+          sha256sum FG-Chat-debug.apk c-toxcore-v0.2.23.tar.gz libsodium-1.0.22.tar.gz > SHA256SUMS
+          gh release create "v0.1.0-alpha.$BUILD_NUMBER" FG-Chat-debug.apk c-toxcore-v0.2.23.tar.gz libsodium-1.0.22.tar.gz SHA256SUMS --target "$BUILD_SHA" --prerelease --title "FG Chat Android messaging alpha $BUILD_NUMBER" --notes-file docs/ALPHA-RELEASE-NOTES.md
