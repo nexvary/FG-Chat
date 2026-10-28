@@ -16,12 +16,12 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-      - uses: android-actions/setup-android@v3
-      - run: sdkmanager 'platforms;android-35' 'build-tools;35.0.0' 'ndk;27.2.12479018' 'cmake;3.22.1'
+      - run: sdkmanager 'platforms;android-35' 'build-tools;34.0.0' 'build-tools;35.0.0' 'ndk;27.2.12479018' 'cmake;3.22.1'
       - run: python3 scripts/fetch-native.py linux-x86_64
       - run: python3 scripts/build-android-native.py
       - run: cmake -S native -B native/build && cmake --build native/build
-      - run: ./gradlew :invite-core:test :tox-engine:test :android-app:lintDebug :android-app:assembleDebug --no-daemon
+      - run: ./gradlew :invite-core:test :tox-engine:test :android-app:lintDebug :android-app:assembleDebug :android-app:exportRuntimeDependencies --no-daemon
+      - run: python3 scripts/scan-dependencies.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -32,6 +32,9 @@ jobs:
             tox-engine/build/test-results/
             tox-engine/build/reports/tests/
             invite-core/build/test-results/
+            build/reports/dependency-scan.json
+            .native-deps/c-toxcore-v0.2.23.tar.gz
+            .native-deps/libsodium-1.0.22.tar.gz
           if-no-files-found: error
   android-35:
     runs-on: ubuntu-latest
@@ -43,7 +46,6 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
-      - uses: android-actions/setup-android@v3
       - run: sdkmanager 'ndk;27.2.12479018' 'cmake;3.22.1'
       - run: python3 scripts/build-android-native.py
       - name: Enable KVM

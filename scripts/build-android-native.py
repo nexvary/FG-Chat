@@ -32,7 +32,7 @@ for abi in sys.argv[1:] or ['arm64-v8a','x86_64']:
         subprocess.run(['make','-j4','install'],cwd=build,env=env,check=True)
     out=DEPS/f'toxcore-android-{abi}'
     env['PKG_CONFIG_LIBDIR']=str(prefix/'lib/pkgconfig')
-    subprocess.run([CMAKE,'-S',str(tox),'-B',str(DEPS/f'tox-build-{abi}'),f'-DANDROID_ABI={abi}',f'-DCMAKE_TOOLCHAIN_FILE={NDK}/build/cmake/android.toolchain.cmake','-DANDROID_PLATFORM=android-26','-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON','-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=16384',f'-DCMAKE_INSTALL_PREFIX={out}',f'-DCMAKE_PREFIX_PATH={prefix}','-DENABLE_STATIC=OFF','-DENABLE_SHARED=ON','-DBUILD_TOXAV=OFF','-DDHT_BOOTSTRAP=OFF','-DBOOTSTRAP_DAEMON=OFF','-DUNITTEST=OFF','-DAUTOTEST=OFF','-DSTRICT_ABI=ON','-DMIN_LOGGER_LEVEL=ERROR','-DCMAKE_BUILD_TYPE=Release'],env=env,check=True)
-    subprocess.run([CMAKE,'--build',str(DEPS/f'tox-build-{abi}'),'-j4'],env=env,check=True)
-    subprocess.run([CMAKE,'--install',str(DEPS/f'tox-build-{abi}')],env=env,check=True)
+    subprocess.run([CMAKE,'-S',str(tox),'-B',str(DEPS/f'tox-build-0.2.23-sodium1.0.22-{abi}'),f'-DANDROID_ABI={abi}',f'-DCMAKE_TOOLCHAIN_FILE={NDK}/build/cmake/android.toolchain.cmake','-DANDROID_PLATFORM=android-26','-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON','-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-z,max-page-size=16384',f'-DCMAKE_INSTALL_PREFIX={out}',f'-DCMAKE_PREFIX_PATH={prefix}','-DENABLE_STATIC=OFF','-DENABLE_SHARED=ON','-DBUILD_TOXAV=OFF','-DDHT_BOOTSTRAP=OFF','-DBOOTSTRAP_DAEMON=OFF','-DUNITTEST=OFF','-DAUTOTEST=OFF','-DSTRICT_ABI=ON','-DMIN_LOGGER_LEVEL=ERROR','-DCMAKE_BUILD_TYPE=Release'],env=env,check=True)
+    subprocess.run([CMAKE,'--build',str(DEPS/f'tox-build-0.2.23-sodium1.0.22-{abi}'),'-j4'],env=env,check=True)
+    subprocess.run([CMAKE,'--install',str(DEPS/f'tox-build-0.2.23-sodium1.0.22-{abi}')],env=env,check=True)
     print(f'Built minimal c-toxcore 0.2.23 for {abi}',flush=True)

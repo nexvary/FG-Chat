@@ -12,14 +12,15 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 
 /** Fail closed: a corrupt/unavailable vault is never replaced by a new identity. */
-class IdentityVault(context: Context) {
-    private val file = AtomicFile(File(context.noBackupFilesDir, "identity.v1"))
+class IdentityVault(context: Context, private val namespace: String = "identity") {
+    init { require(namespace.matches(Regex("[a-z-]{1,32}"))) }
+    private val file = AtomicFile(File(context.noBackupFilesDir, "$namespace.v1"))
     private fun key(): SecretKey {
         val store = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
-        (store.getKey("fgchat.identity.v1", null) as? SecretKey)?.let { return it }
+        (store.getKey("fgchat.$namespace.v1", null) as? SecretKey)?.let { return it }
         check(!file.baseFile.exists()) { "Identity key missing; existing data preserved" }
         return KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore").run {
-            init(KeyGenParameterSpec.Builder("fgchat.identity.v1", KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+            init(KeyGenParameterSpec.Builder("fgchat.$namespace.v1", KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
                 .setBlockModes(KeyProperties.BLOCK_MODE_GCM).setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE).build())
             generateKey()
         }

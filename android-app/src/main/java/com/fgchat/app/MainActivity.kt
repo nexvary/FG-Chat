@@ -59,13 +59,14 @@ class MainActivity : ComponentActivity() {
 @Composable private fun App(model: ChatModel, initialInvite: String) {
     val state by model.state.collectAsState()
     var page by rememberSaveable { mutableStateOf(if(initialInvite.startsWith("fgchat://add/")) "add" else "chats") }
-    var selected by rememberSaveable { mutableStateOf(-1) }
+    var selected by rememberSaveable { mutableIntStateOf(-1) }
     val context=LocalContext.current
     var invite by rememberSaveable { mutableStateOf(initialInvite) }
     var draft by rememberSaveable(selected) { mutableStateOf("") }
     var name by rememberSaveable(state.name) { mutableStateOf(state.name) }
     var confirm by remember { mutableStateOf("") }
     val scope=rememberCoroutineScope()
+    val copiedText=s(R.string.copied)
     val scan=rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if(uri!=null) scope.launch {
             val decoded=withContext(Dispatchers.IO) { runCatching {
@@ -173,7 +174,7 @@ class MainActivity : ComponentActivity() {
                                 Image(qr,s(R.string.fingerprint),modifier=Modifier.size(240.dp).align(Alignment.CenterHorizontally))
                                 Text(s(R.string.fingerprint),color=Silver,fontSize=12.sp)
                                 SelectionContainerCompat(state.address.chunked(19).joinToString("\n"))
-                                Button({ (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("FG Chat invitation",link)) },modifier=Modifier.fillMaxWidth()) {Icon(Icons.Default.ContentCopy,null);Spacer(Modifier.width(8.dp));Text(s(R.string.copy))}
+                                Button({ (context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("FG Chat invitation",link)); android.widget.Toast.makeText(context,copiedText,android.widget.Toast.LENGTH_SHORT).show() },modifier=Modifier.fillMaxWidth()) {Icon(Icons.Default.ContentCopy,null);Spacer(Modifier.width(8.dp));Text(s(R.string.copy))}
                                 OutlinedButton({ context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).apply { type="text/plain";putExtra(Intent.EXTRA_TEXT,link) },null)) },modifier=Modifier.fillMaxWidth()) {Text(s(R.string.share))}
                             }
                             "settings" -> {
