@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.fgchat.invite.InvitationCodesTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-10-28T20:14:40" hostname="1a0975a16988" time="0.034">
+  <properties/>
+  <testcase name="permanentCodeHasNoExpiry()" classname="com.fgchat.invite.InvitationCodesTest" time="0.027"/>
+  <testcase name="oneTimeExpiresAfter24Hours()" classname="com.fgchat.invite.InvitationCodesTest" time="0.001"/>
+  <testcase name="acceptsGroupedCode()" classname="com.fgchat.invite.InvitationCodesTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

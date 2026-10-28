@@ -1,6 +1,6 @@
 # FG Chat — Serverless Direct-Peer Architecture (ADR-0001)
 
-Status: Accepted product requirements; implementation pending.
+Status: Historical design. Relay prohibition and fixed invitation length superseded by ADR-0002/0003. Current implementation: ADR-0004.
 
 ## Non-negotiable behavior
 - No central message store, offline queue, push relay or TURN/data relay in strict-direct mode.

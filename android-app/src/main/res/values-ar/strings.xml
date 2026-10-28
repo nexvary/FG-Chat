@@ -1,0 +1,68 @@
+<resources>
+    <string name="welcome">محادثاتك. هويتك.</string>
+    <string name="tagline">مراسلة خاصة دون رقم هاتف أو خادم تابع لـ FG Chat.</string>
+    <string name="create">إنشاء هوية</string>
+    <string name="display_name">اسمك</string>
+    <string name="chats">المحادثات</string>
+    <string name="contacts">جهات الاتصال</string>
+    <string name="identity">هويتي</string>
+    <string name="settings">الإعدادات</string>
+    <string name="online">متصل</string>
+    <string name="connecting">جارٍ الاتصال بالشبكة العامة…</string>
+    <string name="foreground">أبقِ التطبيق مفتوحًا على الجهازين للمحادثة. لا يوجد إرسال مؤجل.</string>
+    <string name="empty">تبدأ المحادثة الخاصة بدعوة.</string>
+    <string name="add">إضافة صديق</string>
+    <string name="invite_hint">معرّف Tox الكامل أو رابط fgchat://</string>
+    <string name="add_info">تبادلا الدعوات عبر قناة موثوقة. تحققا من المفتاح العام الكامل قبل مشاركة معلومات حساسة. البحث العالمي برمز قصير غير متاح.</string>
+    <string name="copy">نسخ الدعوة</string>
+    <string name="share">مشاركة الدعوة</string>
+    <string name="copied">تم نسخ الدعوة</string>
+    <string name="fingerprint">الهوية العامة · تحقّق منها مع صديقك</string>
+    <string name="requests">طلبات التواصل</string>
+    <string name="accept">قبول</string>
+    <string name="reject">رفض وحظر</string>
+    <string name="available">متاح</string>
+    <string name="unavailable">غير متاح — أعد المحاولة يدويًا أثناء اتصال التطبيقين.</string>
+    <string name="message">رسالة · حتى ٩٠٠ بايت UTF-8</string>
+    <string name="send">إرسال</string>
+    <string name="submitted">أُرسلت للمحرك · بانتظار إقرار النقل</string>
+    <string name="confirmed">وصلت إلى محرك الطرف الآخر</string>
+    <string name="privacy">الخصوصية والأمان</string>
+    <string name="help">المساعدة</string>
+    <string name="about">حول FG Chat</string>
+    <string name="privacy_body">يشفّر Tox المحتوى بين الطرفين. قد تعرف جهات الاتصال عنوان IP الخاص بك، وقد ترى عقد الاتصال والوساطة العامة بيانات الشبكة الوصفية. Tor غير مدمج. Tox تجريبي ولم يخضع لتدقيق أمني مستقل شامل.
+
+تُشفّر الهوية وجهات الاتصال بمفتاح Android Keystore. يحتفظ هذا الإصدار التجريبي بالمحادثات في الذاكرة فقط، حتى ٢٠٠ رسالة لكل جهة. النسخ الاحتياطي للنظام ولقطات الشاشة معطّلة.
+
+إقرار النقل لا يثبت قراءة الشخص للرسالة. قد تصل حزم قيد النقل أثناء انقطاع قصير قبل اكتشافه. لا توجد قائمة إعادة إرسال في التطبيق أو صندوق بريد على خادم.</string>
+    <string name="help_body">١. أنشئ هوية على كل جهاز.
+٢. افتح «هويتي» وشارك الدعوة.
+٣. يضيف صديقك الدعوة؛ اقبل الطلب على جهازك.
+٤. تحققا من المفاتيح العامة عبر قناة موثوقة.
+٥. أبقيا التطبيقين ظاهرين؛ افتح جهة الاتصال وأرسل عند ظهور «متاح».
+
+قد يستغرق الاتصال دقيقة أو يتعذر على شبكات مقيّدة. جرّب شبكة أخرى. مغادرة التطبيق تفصله؛ العودة تعيد الاتصال دون إعادة إرسال الرسائل.
+
+لا تُزل التطبيق أو تمسح بياناته: نقل الحساب والنسخ الاحتياطي غير منفّذين بعد. لا يدعم هذا الإصدار المكالمات أو الوسائط أو الملفات أو الأجهزة المرتبطة أو الحذف عن بُعد.</string>
+    <string name="about_body">FG Chat 0.1.0 تجريبي
+NEXVARY · GPL-3.0-or-later
+المحرك: c-toxcore 0.2.23 / libsodium
+دون بنية تحتية يديرها المطوّر. توافر الشبكة العامة غير مضمون.
+
+إصدار تجريبي لم يخضع لتدقيق أمني.</string>
+    <string name="back">رجوع</string>
+    <string name="close">إغلاق</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="block">حظر جهة الاتصال</string>
+    <string name="block_confirm">إزالة جهة الاتصال وحظر الطلبات المستقبلية من هذا المفتاح؟</string>
+    <string name="clear">مسح المحادثة محليًا</string>
+    <string name="clear_confirm">مسح هذه المحادثة من هذا الجهاز؟ لا يشمل ذلك الجهاز الآخر.</string>
+    <string name="operation_error">تعذّر إتمام العملية. تحقّق من المدخلات وحاول مجددًا.</string>
+    <string name="network_error">تعذّر الاتصال. ارجع إلى التطبيق لإعادة الاتصال.</string>
+    <string name="vault_error">تعذّر فتح هويتك. تم الحفاظ على البيانات الموجودة. لا تمسح التخزين أو تُعد التثبيت.</string>
+    <string name="scan">قراءة QR من صورة</string>
+    <string name="alpha">إصدار أولي · أثناء الاتصال فقط</string>
+    <string name="no_history">تختفي رسائل هذا الإصدار عند إغلاق عملية التطبيق.</string>
+    <string name="no_contacts">لا توجد جهات اتصال بعد</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.fgchat.tox.ToxEngineTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-28T20:14:41" hostname="1a0975a16988" time="10.266">
+  <properties/>
+  <testcase name="closedEngineRejectsUse()" classname="com.fgchat.tox.ToxEngineTest" time="0.037"/>
+  <testcase name="twoRealPeersExchangeEncryptedOnlineMessagesAndReceipts()" classname="com.fgchat.tox.ToxEngineTest" time="10.206"/>
+  <testcase name="unavailableDoesNotQueueAcrossReconnect()" classname="com.fgchat.tox.ToxEngineTest" time="0.004"/>
+  <testcase name="validatesAddressesAndMessageBounds()" classname="com.fgchat.tox.ToxEngineTest" time="0.006"/>
+  <testcase name="identitySurvivesRestartAndCorruptionFailsClosed()" classname="com.fgchat.tox.ToxEngineTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
