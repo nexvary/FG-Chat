@@ -21,7 +21,7 @@ Daemon will be stopped at the end of the build
 > Task :tox-engine:compileTestJava NO-SOURCE
 > Task :tox-engine:processTestResources NO-SOURCE
 > Task :tox-engine:testClasses UP-TO-DATE
-> Task :tox-engine:test UP-TO-DATE
+> Task :tox-engine:test
 > Task :android-app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :android-app:preBuild UP-TO-DATE
 > Task :android-app:preDebugBuild UP-TO-DATE
@@ -33,28 +33,28 @@ Daemon will be stopped at the end of the build
 > Task :android-app:packageDebugResources
 > Task :android-app:createDebugCompatibleScreenManifests UP-TO-DATE
 > Task :android-app:extractDeepLinksDebug UP-TO-DATE
-> Task :android-app:parseDebugLocalResources
-> Task :android-app:mergeDebugResources
-> Task :android-app:processDebugMainManifest
-> Task :android-app:processDebugManifest
+> Task :android-app:processDebugMainManifest UP-TO-DATE
+> Task :android-app:processDebugManifest UP-TO-DATE
+> Task :android-app:processDebugManifestForPackage UP-TO-DATE
 > Task :android-app:javaPreCompileDebug UP-TO-DATE
 > Task :android-app:preDebugAndroidTestBuild SKIPPED
 > Task :android-app:generateDebugAndroidTestResValues UP-TO-DATE
 > Task :android-app:extractProguardFiles UP-TO-DATE
 > Task :android-app:preDebugUnitTestBuild UP-TO-DATE
 > Task :android-app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :android-app:parseDebugLocalResources
 > Task :android-app:mergeDebugShaders UP-TO-DATE
 > Task :android-app:compileDebugShaders NO-SOURCE
 > Task :android-app:generateDebugAssets UP-TO-DATE
-> Task :android-app:mergeDebugAssets
-> Task :android-app:processDebugManifestForPackage
-> Task :android-app:compressDebugAssets
+> Task :android-app:mergeDebugAssets UP-TO-DATE
+> Task :android-app:compressDebugAssets UP-TO-DATE
 > Task :android-app:desugarDebugFileDependencies UP-TO-DATE
+> Task :android-app:mergeDebugResources
 > Task :android-app:checkDebugDuplicateClasses UP-TO-DATE
 > Task :android-app:mergeExtDexDebug UP-TO-DATE
 > Task :android-app:mergeLibDexDebug UP-TO-DATE
-> Task :android-app:processDebugResources
 > Task :android-app:configureCMakeDebug[arm64-v8a]
+> Task :android-app:processDebugResources
 > Task :android-app:buildCMakeDebug[arm64-v8a]
 > Task :android-app:configureCMakeDebug[x86_64]
 > Task :android-app:buildCMakeDebug[x86_64]
@@ -66,8 +66,8 @@ Daemon will be stopped at the end of the build
 > Task :android-app:processDebugAndroidTestManifest UP-TO-DATE
 > Task :android-app:generateDebugAndroidTestBuildConfig UP-TO-DATE
 > Task :android-app:checkDebugAndroidTestAarMetadata UP-TO-DATE
-> Task :android-app:stripDebugDebugSymbols
 > Task :android-app:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+> Task :android-app:stripDebugDebugSymbols
 > Task :android-app:generateDebugAndroidTestResources UP-TO-DATE
 > Task :android-app:mergeDebugAndroidTestResources UP-TO-DATE
 > Task :android-app:processDebugAndroidTestResources UP-TO-DATE
@@ -86,7 +86,6 @@ Daemon will be stopped at the end of the build
 > Task :android-app:stripDebugAndroidTestDebugSymbols NO-SOURCE
 > Task :android-app:validateSigningDebugAndroidTest UP-TO-DATE
 > Task :android-app:writeDebugAndroidTestSigningConfigVersions UP-TO-DATE
-> Task :android-app:exportRuntimeDependencies
 > Task :android-app:compileDebugKotlin
 > Task :android-app:compileDebugJavaWithJavac UP-TO-DATE
 > Task :android-app:bundleDebugClassesToCompileJar
@@ -117,5 +116,5 @@ Daemon will be stopped at the end of the build
 > Task :android-app:lintReportDebug
 > Task :android-app:lintDebug
 
-BUILD SUCCESSFUL in 1m 18s
-88 actionable tasks: 35 executed, 53 up-to-date
+BUILD SUCCESSFUL in 1m 17s
+87 actionable tasks: 30 executed, 57 up-to-date

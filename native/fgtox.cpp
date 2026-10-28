@@ -7,7 +7,7 @@
 #include <limits>
 
 struct Peer { Tox *tox; std::vector<std::string> events; };
-static void emit(Peer *p, std::string event) { if (p->events.size() < 512) p->events.push_back(std::move(event)); }
+static void emit(Peer *p, std::string event) { if (event[0] == 'C' || event[0] == 'S' || p->events.size() < 512) p->events.push_back(std::move(event)); }
 static Peer *peer(jlong h) { return reinterpret_cast<Peer *>(h); }
 static std::string hex(const uint8_t *p, size_t n) {
     const char *digits = "0123456789ABCDEF"; std::string out; out.reserve(n*2);

@@ -1,7 +1,7 @@
 # Work continuation — 2026-10-28
 
 Base commit: 725c65fb6c34ab6bf6266163d955cfc2f3a0310f (main at initial inspection).
-Working branch: fgchat-android-tox-alpha (remote publication pending at this checkpoint).
+Working branch: fgchat-android-tox-alpha. Published checkpoint f91a2d3044ac2ac7f40d9544a8dc5e120f3fcf2d; follow-up validation changes pending. PR #1: https://github.com/nexvary/FG-Chat/pull/1
 Find final exact revision with `git rev-parse HEAD`; this file cannot contain the hash of the commit that contains itself.
 
 ## Repository audit
@@ -18,7 +18,11 @@ Root Gradle build/wrapper, android-app application/Keystore vault/Compose UI/Eng
 - invite-core tests passed (6 tests).
 - tox-engine tests passed (5 tests), including two real Tox identities connecting via local UDP, Arabic/English bidirectional text and read receipts; offline attempt absent after connection, persistence/corruption checks, validation/closed lifecycle.
 - Initial Android debug APK assembled successfully (before source-built 16-KB native replacement).
-- Android 35 emulator and source-built Android native validation in progress at checkpoint; no physical-device/network/battery/Windows/security-audit claims.
+- Source-built Android c-toxcore 0.2.23 with libsodium 1.0.22 built for arm64/x86_64; ELF 16-KB alignment verified, APK zipalign -P16 and v2 signature verification passed.
+- Updated APK + instrumentation APK build and Android lint passed (no lint issues). OSV scan of 85 resolved Android runtime Maven artifacts returned 0 vulnerability records (not a native/build/test audit).
+- Local Android35 software emulator boot timed out after 600s (no KVM here); no UI test/screenshot claim from local run. GitHub KVM instrumentation remains in progress.
+- Optional public network probe failed: peerA=false, peerB=false, friendsReady=false after 60s. Public-node reachability is unproven from this environment. Run `./gradlew :tox-engine:publicNetworkProbe` on an unrestricted network.
+- No physical-device/cross-network/battery/Windows/security-audit claims.
 
 Evidence is in evidence/2026-10-28. Update this checkpoint with final additional results before finishing.
 

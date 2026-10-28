@@ -35,6 +35,7 @@ class IdentityVault(context: Context, private val namespace: String = "identity"
         return cipher.doFinal(bytes.copyOfRange(12, bytes.size))
     }
     fun save(plaintext: ByteArray) {
+        require(plaintext.size <= 4 * 1024 * 1024 - 28) { "Identity vault size limit exceeded" }
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
         cipher.init(Cipher.ENCRYPT_MODE, key()); cipher.updateAAD("FGCHAT-IDENTITY-1".toByteArray())
         val encrypted = cipher.iv + cipher.doFinal(plaintext)

@@ -46,5 +46,24 @@ class ToxEngineTest {
             assertTrue(a.remove(af)); assertEquals(SendResult.Unavailable,a.send(af,"blocked"))
         } }
     }
+    @Test @Timeout(60) fun friendRequestsRequireExplicitApproval() {
+        ToxEngine().use { a -> ToxEngine().use { b ->
+            val af=a.add(b.address())
+            assertTrue(b.friends().isEmpty())
+            a.bootstrap("127.0.0.1",b.localPort(),b.dhtKey())
+            b.bootstrap("127.0.0.1",a.localPort(),a.dhtKey())
+            var request: Event.Request?=null
+            val deadline=System.nanoTime()+30_000_000_000L
+            while(request==null && System.nanoTime()<deadline) {
+                a.iterate(); request=b.iterate().filterIsInstance<Event.Request>().firstOrNull();Thread.sleep(20)
+            }
+            assertEquals(a.address().take(64),assertNotNull(request).key)
+            assertTrue(b.friends().isEmpty(),"Incoming request must not authorize a contact")
+            val bf=b.accept(request!!.key)
+            val connectedDeadline=System.nanoTime()+20_000_000_000L
+            while(!(a.ready(af) && b.ready(bf)) && System.nanoTime()<connectedDeadline) {a.iterate();b.iterate();Thread.sleep(20)}
+            assertTrue(a.ready(af) && b.ready(bf))
+        } }
+    }
     @Test fun closedEngineRejectsUse() { val e=ToxEngine(); e.close();e.close();assertFailsWith<IllegalStateException>{e.address()} }
 }

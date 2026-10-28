@@ -41,7 +41,7 @@ Open both apps; create a local identity on each; exchange a complete invitation 
 
 ## Tests and evidence
 
-CI builds APK, runs Kotlin/native integration tests, Android lint, Android 35 UI tests, dependency review on PRs, weekly Dependabot. Instrumentation must use a disposable emulator with clean application data. Tests cover real peer transport on loopback, not two physical devices or production CGNAT/mobile networks. Evidence is retained in Actions artifacts and `evidence/`; only recorded successful results count.
+CI builds APK, runs Kotlin/native integration tests, Android lint, Android 35 UI tests, OSV scan of resolved Android runtime Maven dependencies, weekly Dependabot. Instrumentation must use a disposable emulator with clean application data. Tests cover real peer transport on loopback, not two physical devices or production CGNAT/mobile networks. Evidence is retained in Actions artifacts and `evidence/`; only recorded successful results count.
 
 ## Not implemented
 

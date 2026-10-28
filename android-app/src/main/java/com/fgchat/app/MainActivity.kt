@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource as s
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -113,7 +114,7 @@ class MainActivity : ComponentActivity() {
                 } },
                 bottomBar={ if(page!="chat") NavigationBar(containerColor=Color(0xFF10151A)) {
                     listOf(Triple("chats",R.string.chats,Icons.AutoMirrored.Filled.Chat),Triple("contacts",R.string.contacts,Icons.Default.People),Triple("identity",R.string.identity,Icons.Default.QrCode2),Triple("settings",R.string.settings,Icons.Default.Settings)).forEach { (key,label,icon) ->
-                        NavigationBarItem(selected=page==key,onClick={page=key},icon={Icon(icon,s(label))},label={Text(s(label),fontSize=10.sp)})
+                        NavigationBarItem(modifier=Modifier.testTag("nav_$key"),selected=page==key,onClick={page=key},icon={Icon(icon,s(label))},label={Text(s(label),fontSize=10.sp)})
                     }
                 } },containerColor=Color(0xFF0A0A0A)
             ) { padding ->

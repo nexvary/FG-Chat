@@ -15,6 +15,8 @@ Assets: local Tox private identity, approved peer keys, plaintext content, conta
 | Malicious files | No incoming file handling yet; standalone FileOffer is not a transfer engine | Before enabling: consent, quotas, storage checks, bounded streaming, safe names, digest, content-URI handling |
 | Invitation flood | Native request event and UI request caps; explicit accept; persistent block | Network-level DoS and many approved-contact history use remain possible |
 | Secrets in logs | No app plaintext/key logging; no native logging callback | Debugger/root/memory dumps still expose data |
-| Supply-chain | Version+SHA-256 pinned native downloads; dependency review/Dependabot | Upstream compilation not independently reproduced; security audit outstanding |
+| Supply-chain | Version+SHA-256 pinned native downloads; OSV runtime dependency scan/Dependabot | Upstream compilation not independently reproduced; security audit outstanding |
+
+Trust/contact changes roll back in memory if encrypted vault persistence fails.
 
 No voice/video/group/file APIs are wired. Do not market these as protected capabilities. No multi-device key copying, production signing key, network anonymity or guaranteed remote erasure is offered. Local clear only clears this process memory; cannot erase screenshots/external copies/modified clients. Any local database must be encrypted before persistent history is enabled.

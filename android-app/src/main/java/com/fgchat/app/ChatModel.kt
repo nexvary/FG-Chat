@@ -21,7 +21,8 @@ data class UiState(
 )
 
 class ChatModel(app: Application) : AndroidViewModel(app) {
-    private val worker = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+    private val executor = Executors.newSingleThreadExecutor()
+    private val worker = executor.asCoroutineDispatcher()
     private val vault = IdentityVault(app)
     private var engine: ToxEngine? = null
     private var pump: Job? = null
@@ -59,7 +60,7 @@ class ChatModel(app: Application) : AndroidViewModel(app) {
         mutable.value = mutable.value.copy(exists=true)
         if(started) runPump()
     }
-    fun rename(name: String) = action { require(name.isNotBlank() && name.length<=64); mutable.value=mutable.value.copy(name=name.trim()); persist() }
+    fun rename(name: String) = action { require(name.isNotBlank() && name.length<=64); updateIdentity { mutable.value=mutable.value.copy(name=name.trim()) } }
     fun connect() { viewModelScope.launch(worker) { started = true; if(engine != null) runPump() } }
     fun disconnect() { viewModelScope.launch(worker) {
         started = false; pump?.cancel(); pump=null
@@ -101,24 +102,39 @@ class ChatModel(app: Application) : AndroidViewModel(app) {
         val lines=mutable.value.messages[friend].orEmpty()
         mutable.value=mutable.value.copy(messages=mutable.value.messages+(friend to (lines+line).takeLast(200)))
     }
-    fun add(address: String) = action { engine!!.add(address); persist(); refresh() }
+    /** Persist trust changes before exposing success; failed writes restore the previous engine. */
+    private fun updateIdentity(change: () -> Unit) {
+        val oldData=engine!!.savedata()
+        val before=mutable.value
+        val oldBlocked=blocked.toSet()
+        try { change(); persist(); refresh() }
+        catch (failure: Exception) {
+            pump?.cancel(); pump=null; engine?.close()
+            engine=ToxEngine(oldData)
+            blocked.clear(); blocked.addAll(oldBlocked)
+            mutable.value=before.copy(online=false,contacts=before.contacts.map {it.copy(online=false)},messages=before.messages.mapValues {(_,lines)->lines.map {if(it.outgoing && !it.confirmed)it.copy(id=-1) else it}})
+            if(started) runPump()
+            throw failure
+        } finally { oldData.fill(0) }
+    }
+    fun add(address: String) = action { updateIdentity { engine!!.add(address) } }
     fun accept(key: String) = action {
-        require(key !in blocked); engine!!.accept(key); persist()
-        mutable.value=mutable.value.copy(requests=mutable.value.requests-key); refresh()
+        require(key !in blocked)
+        updateIdentity { engine!!.accept(key); mutable.value=mutable.value.copy(requests=mutable.value.requests-key) }
     }
-    fun reject(key: String) = action { blocked += key; persist(); mutable.value=mutable.value.copy(requests=mutable.value.requests-key) }
-    fun block(friend: Int) = action {
-        blocked += engine!!.friendKey(friend); check(engine!!.remove(friend)); persist()
-        mutable.value=mutable.value.copy(messages=mutable.value.messages-friend); refresh()
-    }
+    fun reject(key: String) = action { updateIdentity { blocked += key; mutable.value=mutable.value.copy(requests=mutable.value.requests-key) } }
+    fun block(friend: Int) = action { updateIdentity {
+        blocked += engine!!.friendKey(friend); check(engine!!.remove(friend))
+        mutable.value=mutable.value.copy(messages=mutable.value.messages-friend)
+    } }
     fun send(friend: Int,text: String, onSubmitted: () -> Unit = {}) = action {
         when(val result=engine!!.send(friend,text)) {
             SendResult.Unavailable -> mutable.value=mutable.value.copy(notice="unavailable")
             is SendResult.Submitted -> { append(friend,ChatLine(text,true,result.id)); withContext(Dispatchers.Main.immediate) { onSubmitted() } }
         }
     }
-    fun clear(friend: Int) { mutable.value=mutable.value.copy(messages=mutable.value.messages-friend) }
-    fun dismiss() { mutable.value=mutable.value.copy(notice=null) }
+    fun clear(friend: Int) = action { mutable.value=mutable.value.copy(messages=mutable.value.messages-friend) }
+    fun dismiss() = action { mutable.value=mutable.value.copy(notice=null) }
     private fun action(block: suspend () -> Unit) { viewModelScope.launch(worker) { try { block() } catch (_: Exception) { mutable.value=mutable.value.copy(notice="operation_error") } } }
-    override fun onCleared() { pump?.cancel(); engine?.close(); worker.close() }
+    override fun onCleared() { pump?.cancel(); executor.execute { engine?.close() }; worker.close() }
 }
