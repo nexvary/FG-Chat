@@ -46,6 +46,10 @@ class AppSmokeTest {
         val image=inst.uiAutomation.takeScreenshot()
         val dir=File(inst.targetContext.getExternalFilesDir(null),"evidence").apply { mkdirs() }
         File(dir,name).outputStream().use { image.compress(Bitmap.CompressFormat.PNG,100,it) }
+        val command="mkdir -p /sdcard/Download/fgchat-test-evidence && cp ${File(dir,name).absolutePath} /sdcard/Download/fgchat-test-evidence/$name"
+        inst.uiAutomation.executeShellCommand(command).use { descriptor ->
+            java.io.FileInputStream(descriptor.fileDescriptor).use { it.readBytes() }
+        }
         image.recycle()
     }
 }
