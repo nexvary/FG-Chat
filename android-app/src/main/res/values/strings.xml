@@ -32,7 +32,7 @@
     <string name="about">About FG Chat</string>
     <string name="privacy_body">Tox encrypts content between peers. Direct contacts can learn your IP address; public bootstrap and relay nodes can observe network metadata. Tor is not integrated. Tox is experimental and has not had a complete independent security audit.
 
-Identity and contacts are encrypted using Android Keystore. This alpha keeps chat history only in memory (up to 200 messages per contact). Android backups and screenshots are disabled.
+Identity and contacts are encrypted using Android Keystore. This alpha keeps chat history only in memory (up to 200 messages per contact). Android backups are disabled. Screenshots are blocked in release builds; debug builds allow them for test evidence.
 
 A transport receipt does not prove a human read the message. In-flight packets may arrive during a brief interruption before disconnection is detected. No application retry queue or server mailbox exists.</string>
     <string name="help_body">1. Create an identity on each device.

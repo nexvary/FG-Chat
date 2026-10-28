@@ -20,13 +20,13 @@ class AppSmokeTest {
         rule.waitUntil(20000) { rule.onAllNodesWithText("Chats").fetchSemanticsNodes().isNotEmpty() }
         screenshot("chats-en.png")
         rule.onNodeWithContentDescription("My identity").performClick()
-        rule.onNodeWithText("FG Test").assertIsDisplayed()
-        rule.onNodeWithText("Copy invitation").assertIsDisplayed()
+        rule.onNodeWithText("FG Test").performScrollTo().assertIsDisplayed()
         screenshot("identity-en.png")
+        rule.onNodeWithText("Copy invitation").performScrollTo().assertIsDisplayed()
         rule.activityRule.scenario.recreate()
         rule.waitUntil(15000) { rule.onAllNodesWithText("My identity").fetchSemanticsNodes().isNotEmpty() }
         rule.onNodeWithContentDescription("My identity").performClick()
-        rule.onNodeWithText("FG Test").assertIsDisplayed()
+        rule.onNodeWithText("FG Test").performScrollTo().assertIsDisplayed()
         rule.onNodeWithContentDescription("Settings").performClick()
         rule.onNodeWithText("Privacy and security").performClick()
         rule.onNodeWithContentDescription("Back").performClick()
@@ -37,7 +37,7 @@ class AppSmokeTest {
         rule.waitUntil(15000) { rule.onAllNodesWithText("المحادثات").fetchSemanticsNodes().isNotEmpty() }
         screenshot("chats-ar.png")
         rule.onNodeWithContentDescription("هويتي").performClick()
-        rule.onNodeWithText("FG Test").assertIsDisplayed()
+        rule.onNodeWithText("FG Test").performScrollTo().assertIsDisplayed()
         screenshot("identity-ar.png")
     }
     private fun screenshot(name: String) {

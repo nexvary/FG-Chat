@@ -135,7 +135,7 @@ class MainActivity : ComponentActivity() {
                             }
                             Row(Modifier.imePadding().padding(vertical=12.dp),verticalAlignment=Alignment.CenterVertically) {
                                 OutlinedTextField(draft,{draft=it},placeholder={Text(s(R.string.message),fontSize=12.sp)},modifier=Modifier.weight(1f),maxLines=4)
-                                IconButton({model.send(selected,draft);draft=""},enabled=contact.online && draft.isNotBlank() && draft.toByteArray().size<=900) { Icon(Icons.AutoMirrored.Filled.Send,s(R.string.send),tint=if(contact.online)Green else Silver) }
+                                IconButton({val sentDraft=draft; model.send(selected,sentDraft) { if(draft==sentDraft)draft="" }},enabled=contact.online && draft.isNotBlank() && draft.toByteArray().size<=900) { Icon(Icons.AutoMirrored.Filled.Send,s(R.string.send),tint=if(contact.online)Green else Silver) }
                             }
                         }
                     } else Column(Modifier.verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(16.dp)) {

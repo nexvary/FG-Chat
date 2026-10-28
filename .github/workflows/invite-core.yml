@@ -72,9 +72,17 @@ jobs:
           api-level: 35
           arch: x86_64
           profile: pixel_2
-          script: ./gradlew :android-app:connectedDebugAndroidTest --no-daemon
+          script: |
+            status=0
+            ./gradlew :android-app:connectedDebugAndroidTest --no-daemon || status=$?
+            mkdir -p evidence/android-35
+            adb pull /sdcard/Android/data/com.fgchat.app/files/evidence evidence/android-35 || true
+            exit "$status"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: Android-35-instrumentation
-          path: android-app/build/reports/androidTests/
+          path: |
+            android-app/build/reports/androidTests/
+            android-app/build/outputs/androidTest-results/
+            evidence/android-35/

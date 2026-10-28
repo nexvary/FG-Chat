@@ -9,3 +9,10 @@ tasks.test {
     useJUnitPlatform()
     systemProperty("java.library.path", rootProject.file("native/build").absolutePath)
 }
+
+tasks.register<JavaExec>("publicNetworkProbe") {
+    dependsOn(tasks.testClasses)
+    classpath = sourceSets.test.get().runtimeClasspath
+    mainClass.set("com.fgchat.tox.PublicNetworkProbeKt")
+    systemProperty("java.library.path", rootProject.file("native/build").absolutePath)
+}

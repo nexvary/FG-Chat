@@ -111,14 +111,14 @@ class ChatModel(app: Application) : AndroidViewModel(app) {
         blocked += engine!!.friendKey(friend); check(engine!!.remove(friend)); persist()
         mutable.value=mutable.value.copy(messages=mutable.value.messages-friend); refresh()
     }
-    fun send(friend: Int,text: String) = action {
+    fun send(friend: Int,text: String, onSubmitted: () -> Unit = {}) = action {
         when(val result=engine!!.send(friend,text)) {
             SendResult.Unavailable -> mutable.value=mutable.value.copy(notice="unavailable")
-            is SendResult.Submitted -> append(friend,ChatLine(text,true,result.id))
+            is SendResult.Submitted -> { append(friend,ChatLine(text,true,result.id)); withContext(Dispatchers.Main.immediate) { onSubmitted() } }
         }
     }
     fun clear(friend: Int) { mutable.value=mutable.value.copy(messages=mutable.value.messages-friend) }
     fun dismiss() { mutable.value=mutable.value.copy(notice=null) }
-    private fun action(block: () -> Unit) { viewModelScope.launch(worker) { try { block() } catch (_: Exception) { mutable.value=mutable.value.copy(notice="operation_error") } } }
+    private fun action(block: suspend () -> Unit) { viewModelScope.launch(worker) { try { block() } catch (_: Exception) { mutable.value=mutable.value.copy(notice="operation_error") } } }
     override fun onCleared() { pump?.cancel(); engine?.close(); worker.close() }
 }
