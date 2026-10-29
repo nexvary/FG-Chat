@@ -7,8 +7,6 @@ import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
-import android.graphics.Bitmap
 
 /** Run on a disposable emulator with clean app data. */
 class AppSmokeTest {
@@ -42,14 +40,15 @@ class AppSmokeTest {
     }
     private fun screenshot(name: String) {
         rule.waitForIdle()
-        val inst=InstrumentationRegistry.getInstrumentation()
-        val image=inst.uiAutomation.takeScreenshot()
-        val dir=File(inst.targetContext.getExternalFilesDir(null),"evidence").apply { mkdirs() }
-        File(dir,name).outputStream().use { image.compress(Bitmap.CompressFormat.PNG,100,it) }
-        val command="mkdir -p /sdcard/Download/fgchat-test-evidence && cp ${File(dir,name).absolutePath} /sdcard/Download/fgchat-test-evidence/$name"
-        inst.uiAutomation.executeShellCommand(command).use { descriptor ->
-            java.io.FileInputStream(descriptor.fileDescriptor).use { it.readBytes() }
+        val directory="/sdcard/Download/fgchat-test-evidence"
+        shell("mkdir -p $directory")
+        shell("screencap -p $directory/$name")
+        check(shell("ls -l $directory/$name").contains(name)) { "Screenshot was not saved: $name" }
+    }
+    private fun shell(command: String): String {
+        val automation=InstrumentationRegistry.getInstrumentation().uiAutomation
+        return android.os.ParcelFileDescriptor.AutoCloseInputStream(automation.executeShellCommand(command)).use {
+            it.readBytes().toString(Charsets.UTF_8)
         }
-        image.recycle()
     }
 }

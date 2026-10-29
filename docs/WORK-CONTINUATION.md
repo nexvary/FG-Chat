@@ -1,7 +1,7 @@
-# Work continuation — 2026-10-28
+# Work continuation — 2026-10-29
 
 Base commit: 725c65fb6c34ab6bf6266163d955cfc2f3a0310f (main at initial inspection).
-Working branch: fgchat-android-tox-alpha. Published checkpoint f91a2d3044ac2ac7f40d9544a8dc5e120f3fcf2d; follow-up validation changes pending. PR #1: https://github.com/nexvary/FG-Chat/pull/1
+Working branch: fgchat-android-tox-alpha. Verified source checkpoint 5ea5fb34ddbaa9ca35eada33dfd298835b26a241; screenshot collection fix pending. PR #1: https://github.com/nexvary/FG-Chat/pull/1
 Find final exact revision with `git rev-parse HEAD`; this file cannot contain the hash of the commit that contains itself.
 
 ## Repository audit
@@ -10,17 +10,17 @@ Inspected all original files (invite-core contracts/tests, SQL, ADRs, workflow).
 
 ## Implemented files
 
-Root Gradle build/wrapper, android-app application/Keystore vault/Compose UI/English+Arabic/QR import/export/instrumentation, tox-engine Kotlin JNI wrapper/session framing/bootstrap/native tests, native C++/CMake, source build/download scripts, CI/Dependabot/dependency review, GPL license, current README/ADR/threat model, evidence. Original 15-character invitation generator is unused legacy API. See `git show --stat` or `git status --short` for exact modified files.
+Root Gradle build/wrapper, android-app application/Keystore vault/Compose UI/English+Arabic/QR import/export/instrumentation, tox-engine Kotlin JNI wrapper/session framing/bootstrap/native tests, native C++/CMake, source build/download scripts, CI/Dependabot/OSV runtime scan, GPL license, current README/ADR/threat model, evidence. Original 15-character invitation generator is unused legacy API. See `git show --stat` or `git status --short` for exact modified files.
 
 ## Verified checkpoint
 
 - Host JNI native C++ built successfully, warnings as errors.
 - invite-core tests passed (6 tests).
-- tox-engine tests passed (5 tests), including two real Tox identities connecting via local UDP, Arabic/English bidirectional text and read receipts; offline attempt absent after connection, persistence/corruption checks, validation/closed lifecycle.
+- tox-engine tests passed (6 tests), including two real Tox identities connecting via local UDP, Arabic/English bidirectional text and read receipts; offline attempt absent after connection, persistence/corruption checks, validation/closed lifecycle.
 - Initial Android debug APK assembled successfully (before source-built 16-KB native replacement).
 - Source-built Android c-toxcore 0.2.23 with libsodium 1.0.22 built for arm64/x86_64; ELF 16-KB alignment verified, APK zipalign -P16 and v2 signature verification passed.
 - Updated APK + instrumentation APK build and Android lint passed (no lint issues). OSV scan of 85 resolved Android runtime Maven artifacts returned 0 vulnerability records (not a native/build/test audit).
-- Local Android35 software emulator boot timed out after 600s (no KVM here); no UI test/screenshot claim from local run. GitHub KVM instrumentation remains in progress.
+- Local Android35 software emulator boot timed out after 600s (no KVM here); no UI test/screenshot claim from local run. GitHub KVM instrumentation passed all 3 tests: UI/Arabic/navigation/recreation, native Android loopback messaging, Keystore tamper rejection. Run https://github.com/nexvary/FG-Chat/actions/runs/40764718624. Screenshot export was empty despite passing tests; collection fix and explicit four-image gate added.
 - Optional public network probe failed: peerA=false, peerB=false, friendsReady=false after 60s. Public-node reachability is unproven from this environment. Run `./gradlew :tox-engine:publicNetworkProbe` on an unrestricted network.
 - No physical-device/cross-network/battery/Windows/security-audit claims.
 
@@ -35,7 +35,7 @@ UI: clean disposable API35 x86_64 emulator, `./gradlew :android-app:connectedDeb
 
 ## Next priorities
 
-1. Finish source-built Android 16-KB native build and re-run APK/lint/instrumentation. Publish only actual artifact links; physical phone test still required.
+1. Validate the screenshot collection fix, inspect all four actual screenshots, merge verified alpha and publish the test APK with native corresponding sources. Physical phone test still required.
 2. Two Android phones (Wi-Fi/mobile/CGNAT, IPv4/IPv6, public relay fallback), record timing/offline/race/battery/lifecycle tests; compare native upstream handshake hardening before wider testing.
 3. Add protocol-level app accepted-message acknowledgments and receipt generation scoping, stronger invitation validation UX; data persistence rollback/fault-injection tests.
 4. Independent app root/device authorization using reviewed standard formats/library; QR authenticated transfer with confirmation and atomic activation/rollback, encrypted export; do not duplicate live Tox keys.
