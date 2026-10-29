@@ -28,7 +28,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
       - name: Probe public Tox network (availability experiment)
         id: public_probe
         continue-on-error: true
