@@ -48,21 +48,34 @@ private val Blue=Color(0xFF32B7FF)
 private val Silver=Color(0xFFB8C5D1)
 class MainActivity : ComponentActivity() {
     private val model: ChatModel by viewModels()
+    private var inboundInvite by mutableStateOf("")
+    private var inviteRevision by mutableIntStateOf(0)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Saved Compose navigation already includes a consumed invitation after recreation.
+        inboundInvite=if(savedInstanceState==null) intent?.dataString.orEmpty() else ""
         if (!BuildConfig.DEBUG) window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        setContent { MaterialTheme(colorScheme=darkColorScheme(primary=Green,secondary=Blue,background=Color(0xFF0A0A0A),surface=Color(0xFF12171C),onPrimary=Color.Black)) { App(model,intent?.dataString.orEmpty()) } }
+        setContent { MaterialTheme(colorScheme=darkColorScheme(primary=Green,secondary=Blue,background=Color(0xFF0A0A0A),surface=Color(0xFF12171C),onPrimary=Color.Black)) { App(model,inboundInvite,inviteRevision) } }
+    }
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        inboundInvite=intent.dataString.orEmpty()
+        inviteRevision++
     }
     override fun onStart() { super.onStart(); model.connect() }
     override fun onStop() { model.disconnect(); super.onStop() }
 }
 
-@Composable private fun App(model: ChatModel, initialInvite: String) {
+@Composable private fun App(model: ChatModel, initialInvite: String, inviteRevision: Int) {
     val state by model.state.collectAsState()
     var page by rememberSaveable { mutableStateOf(if(initialInvite.startsWith("fgchat://add/")) "add" else "chats") }
     var selected by rememberSaveable { mutableIntStateOf(-1) }
     val context=LocalContext.current
     var invite by rememberSaveable { mutableStateOf(initialInvite) }
+    LaunchedEffect(initialInvite,inviteRevision) {
+        if(initialInvite.startsWith("fgchat://add/")) { invite=initialInvite;page="add";selected=-1 }
+    }
     var draft by rememberSaveable(selected) { mutableStateOf("") }
     var name by rememberSaveable(state.name) { mutableStateOf(state.name) }
     var confirm by remember { mutableStateOf("") }

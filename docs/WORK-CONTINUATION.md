@@ -1,7 +1,7 @@
 # Work continuation — 2026-10-29
 
 Base commit: 725c65fb6c34ab6bf6266163d955cfc2f3a0310f (main at initial inspection).
-Working branch: fgchat-android-tox-alpha. Verified application/test checkpoint 4d080e64239e5f8307c74d7deb08b8a4a757523c; release/evidence workflow changes follow this checkpoint. PR #1: https://github.com/nexvary/FG-Chat/pull/1
+Working branch: main (PR #1 merged as 07b623c02dcab025953b76c07962abbe1611e957). Verified application/test checkpoint 4d080e64239e5f8307c74d7deb08b8a4a757523c; release/evidence workflow changes follow this checkpoint. PR #1: https://github.com/nexvary/FG-Chat/pull/1
 Find final exact revision with `git rev-parse HEAD`; this file cannot contain the hash of the commit that contains itself.
 
 ## Repository audit
@@ -45,3 +45,7 @@ UI: clean disposable API35 x86_64 emulator, `./gradlew :android-app:connectedDeb
 8. Windows CMake JNI packaging with same Kotlin engine after Android stability, then independent security review and protected production signing.
 
 Phases 1–60 are not declared complete. Threat model includes unimplemented features as open gates, not security guarantees.
+
+## Warm invitation lifecycle follow-up
+
+A post-merge review found that opening a deep link in an already-running application could create a second Activity/ViewModel that retained stale Tox savedata. Fix: one singleTask identity owner, onNewIntent routing with a revision counter for repeated identical links, and no replay of a consumed launch invitation during recreation. The API35 smoke test now opens the same valid generated invitation twice, checks Activity identity reuse, recreates, and verifies the Arabic Chats screen stays selected. This application change must pass main CI before publication; do not rely only on the preceding checkpoint's tests.

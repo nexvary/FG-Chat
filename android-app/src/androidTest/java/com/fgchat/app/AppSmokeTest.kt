@@ -21,6 +21,21 @@ class AppSmokeTest {
         rule.onNodeWithText("FG Test").performScrollTo().assertIsDisplayed()
         screenshot("identity-en.png")
         rule.onNodeWithText("Copy invitation").performScrollTo().assertIsDisplayed()
+        val activityBeforeInvite=rule.activity
+        val invitation=com.fgchat.tox.ToxEngine().use { "fgchat://add/${it.address()}" }
+        fun openInvitation() {
+            rule.runOnUiThread {
+                rule.activity.startActivity(android.content.Intent(android.content.Intent.ACTION_VIEW,android.net.Uri.parse(invitation)).apply {
+                    setPackage(rule.activity.packageName)
+                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+            }
+            rule.waitUntil(15000) {rule.onAllNodesWithText(invitation).fetchSemanticsNodes().isNotEmpty()}
+            org.junit.Assert.assertSame("Warm invitation must reuse the existing identity owner",activityBeforeInvite,rule.activity)
+        }
+        openInvitation()
+        rule.onNodeWithTag("nav_chats").performClick()
+        openInvitation() // An identical link must route again after leaving the add screen.
         rule.activityRule.scenario.recreate()
         rule.waitUntil(15000) { rule.onAllNodesWithText("My identity").fetchSemanticsNodes().isNotEmpty() }
         rule.onNodeWithTag("nav_identity").performClick()
@@ -33,6 +48,7 @@ class AppSmokeTest {
             rule.activity.getSystemService(LocaleManager::class.java).applicationLocales=LocaleList.forLanguageTags("ar-EG")
         }
         rule.waitUntil(15000) { rule.onAllNodesWithText("المحادثات").fetchSemanticsNodes().isNotEmpty() }
+        rule.onAllNodesWithText("المحادثات").assertCountEquals(2)
         screenshot("chats-ar.png")
         rule.onNodeWithTag("nav_identity").performClick()
         rule.onNodeWithText("FG Test").performScrollTo().assertIsDisplayed()
