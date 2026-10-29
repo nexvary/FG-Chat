@@ -33,7 +33,7 @@ jobs:
       - run: |
           "$ANDROID_HOME/build-tools/35.0.0/zipalign" -c -P 16 4 android-app/build/outputs/apk/debug/android-app-debug.apk
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify android-app/build/outputs/apk/debug/android-app-debug.apk
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: FG-Chat-debug-and-test-evidence
@@ -76,7 +76,7 @@ jobs:
           arch: x86_64
           profile: pixel_2
           script: bash scripts/run-android-instrumentation.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: Android-35-instrumentation
