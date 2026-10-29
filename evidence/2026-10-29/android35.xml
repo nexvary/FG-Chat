@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.fgchat.app.AppSmokeTest" tests="3" failures="0" errors="0" skipped="0" time="15.44" timestamp="2026-10-29T01:18:22" hostname="localhost">
+  <properties>
+    <property name="device" value="emulator-5554 - 15" />
+    <property name="flavor" value="" />
+    <property name="project" value=":android-app" />
+  </properties>
+  <testcase name="identityNavigationPersistenceAndArabic" classname="com.fgchat.app.AppSmokeTest" time="4.621" />
+  <testcase name="actualAndroidNativePeersExchangeOnlineText" classname="com.fgchat.app.NativeTransportTest" time="10.245" />
+  <testcase name="keystoreRoundTripAndTamperFailurePreservesData" classname="com.fgchat.app.VaultTest" time="0.002" />
+</testsuite>

@@ -1,0 +1,7 @@
+{
+  "time": "2026-10-28T20:23:02.628281+00:00",
+  "source": "https://api.osv.dev/v1/querybatch",
+  "scope": "resolved Android runtime Maven artifacts; native/build/test dependencies not scanned",
+  "packages": 85,
+  "findings": []
+}

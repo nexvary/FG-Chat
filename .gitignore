@@ -1,0 +1,9 @@
+.gradle/
+**/build/
+local.properties
+.tools/
+.native-deps/
+*.jks
+*.keystore
+.cxx/
+.kotlin/

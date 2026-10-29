@@ -1,3 +1,7 @@
+# Archived operator-run directory prototype
+
+Not part of the Android build or deployment. Retained for historical reference only. ADR-0003 and ADR-0004 supersede this design. Do not deploy it for FG Chat.
+
 # Server design — NOT YET A RUNNING SERVICE
 
 Database DDL and atomic redemption SQL are the first backend deliverables.

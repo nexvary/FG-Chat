@@ -1,0 +1,34 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :tox-engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :tox-engine:compileKotlin UP-TO-DATE
+> Task :tox-engine:compileJava NO-SOURCE
+> Task :tox-engine:processResources NO-SOURCE
+> Task :tox-engine:classes UP-TO-DATE
+> Task :tox-engine:jar UP-TO-DATE
+> Task :tox-engine:processTestResources NO-SOURCE
+> Task :tox-engine:compileTestKotlin
+> Task :tox-engine:compileTestJava NO-SOURCE
+> Task :tox-engine:testClasses UP-TO-DATE
+> Task :tox-engine:publicNetworkProbe
+Public bootstrap: peerA=false peerB=false; friendsReady=false
+Exception in thread "main" java.lang.IllegalStateException: Public network unavailable from this execution environment; no reachability claim
+	at com.fgchat.tox.PublicNetworkProbeKt.main(PublicNetworkProbe.kt:16)
+	at com.fgchat.tox.PublicNetworkProbeKt.main(PublicNetworkProbe.kt)
+
+> Task :tox-engine:publicNetworkProbe FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':tox-engine:publicNetworkProbe'.
+> Process 'command '/workspace/fg-tools/jdk-17.0.21+9/bin/java'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 21s
+4 actionable tasks: 2 executed, 2 up-to-date

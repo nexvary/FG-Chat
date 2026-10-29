@@ -1,0 +1,83 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Checking the license for package Android SDK Build-Tools 34 in /workspace/fg-tools/android-sdk/licenses
+License for package Android SDK Build-Tools 34 accepted.
+Preparing "Install Android SDK Build-Tools 34 v.34.0.0".
+"Install Android SDK Build-Tools 34 v.34.0.0" ready.
+Installing Android SDK Build-Tools 34 in /workspace/fg-tools/android-sdk/build-tools/34.0.0
+"Install Android SDK Build-Tools 34 v.34.0.0" complete.
+"Install Android SDK Build-Tools 34 v.34.0.0" finished.
+> Task :invite-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :invite-core:compileKotlin
+> Task :invite-core:processResources NO-SOURCE
+> Task :invite-core:processTestResources NO-SOURCE
+> Task :tox-engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :tox-engine:processResources NO-SOURCE
+> Task :tox-engine:processTestResources NO-SOURCE
+> Task :android-app:preBuild UP-TO-DATE
+> Task :android-app:preDebugBuild UP-TO-DATE
+> Task :android-app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :android-app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :android-app:generateDebugBuildConfig
+> Task :tox-engine:compileKotlin
+> Task :android-app:checkDebugAarMetadata
+> Task :invite-core:compileJava NO-SOURCE
+> Task :invite-core:classes UP-TO-DATE
+> Task :invite-core:jar
+> Task :tox-engine:compileJava NO-SOURCE
+> Task :tox-engine:classes UP-TO-DATE
+> Task :tox-engine:jar
+> Task :android-app:generateDebugResValues
+> Task :android-app:mapDebugSourceSetPaths
+> Task :android-app:generateDebugResources
+> Task :invite-core:compileTestKotlin
+> Task :invite-core:compileTestJava NO-SOURCE
+> Task :tox-engine:compileTestKotlin
+> Task :invite-core:testClasses UP-TO-DATE
+> Task :android-app:mergeDebugResources
+> Task :invite-core:test
+> Task :tox-engine:compileTestJava NO-SOURCE
+> Task :tox-engine:testClasses UP-TO-DATE
+> Task :tox-engine:test
+> Task :android-app:packageDebugResources
+> Task :android-app:createDebugCompatibleScreenManifests
+> Task :android-app:extractDeepLinksDebug
+> Task :android-app:parseDebugLocalResources
+> Task :android-app:processDebugMainManifest
+> Task :android-app:processDebugManifest
+> Task :android-app:javaPreCompileDebug
+> Task :android-app:mergeDebugShaders
+> Task :android-app:compileDebugShaders NO-SOURCE
+> Task :android-app:generateDebugAssets UP-TO-DATE
+> Task :android-app:mergeDebugAssets
+> Task :android-app:compressDebugAssets
+> Task :android-app:desugarDebugFileDependencies
+> Task :android-app:checkDebugDuplicateClasses
+> Task :android-app:configureCMakeDebug[arm64-v8a]
+> Task :android-app:processDebugManifestForPackage
+> Task :android-app:mergeExtDexDebug
+> Task :android-app:mergeLibDexDebug
+> Task :android-app:processDebugResources
+> Task :android-app:buildCMakeDebug[arm64-v8a]
+> Task :android-app:configureCMakeDebug[x86_64]
+> Task :android-app:buildCMakeDebug[x86_64]
+> Task :android-app:mergeDebugJniLibFolders
+> Task :android-app:mergeDebugNativeLibs
+> Task :android-app:validateSigningDebug
+> Task :android-app:writeDebugAppMetadata
+> Task :android-app:writeDebugSigningConfigVersions
+> Task :android-app:stripDebugDebugSymbols
+> Task :android-app:compileDebugKotlin
+> Task :wrapper
+> Task :android-app:compileDebugJavaWithJavac
+> Task :android-app:dexBuilderDebug
+> Task :android-app:mergeDebugGlobalSynthetics
+> Task :android-app:processDebugJavaRes
+> Task :android-app:mergeProjectDexDebug
+> Task :android-app:mergeDebugJavaResource
+> Task :android-app:packageDebug
+> Task :android-app:createDebugApkListingFileRedirect
+> Task :android-app:assembleDebug
+
+BUILD SUCCESSFUL in 5m 12s
+50 actionable tasks: 50 executed

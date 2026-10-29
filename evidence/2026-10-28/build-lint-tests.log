@@ -1,0 +1,120 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :invite-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :invite-core:compileKotlin UP-TO-DATE
+> Task :invite-core:compileJava NO-SOURCE
+> Task :invite-core:processResources NO-SOURCE
+> Task :invite-core:classes UP-TO-DATE
+> Task :invite-core:jar UP-TO-DATE
+> Task :invite-core:compileTestKotlin UP-TO-DATE
+> Task :invite-core:compileTestJava NO-SOURCE
+> Task :invite-core:processTestResources NO-SOURCE
+> Task :invite-core:testClasses UP-TO-DATE
+> Task :invite-core:test UP-TO-DATE
+> Task :tox-engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :tox-engine:compileKotlin UP-TO-DATE
+> Task :tox-engine:compileJava NO-SOURCE
+> Task :tox-engine:processResources NO-SOURCE
+> Task :tox-engine:classes UP-TO-DATE
+> Task :tox-engine:jar UP-TO-DATE
+> Task :tox-engine:compileTestKotlin UP-TO-DATE
+> Task :tox-engine:compileTestJava NO-SOURCE
+> Task :tox-engine:processTestResources NO-SOURCE
+> Task :tox-engine:testClasses UP-TO-DATE
+> Task :tox-engine:test
+> Task :android-app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :android-app:preBuild UP-TO-DATE
+> Task :android-app:preDebugBuild UP-TO-DATE
+> Task :android-app:generateDebugBuildConfig UP-TO-DATE
+> Task :android-app:checkDebugAarMetadata UP-TO-DATE
+> Task :android-app:generateDebugResValues UP-TO-DATE
+> Task :android-app:mapDebugSourceSetPaths
+> Task :android-app:generateDebugResources
+> Task :android-app:packageDebugResources
+> Task :android-app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :android-app:extractDeepLinksDebug UP-TO-DATE
+> Task :android-app:processDebugMainManifest UP-TO-DATE
+> Task :android-app:processDebugManifest UP-TO-DATE
+> Task :android-app:processDebugManifestForPackage UP-TO-DATE
+> Task :android-app:javaPreCompileDebug UP-TO-DATE
+> Task :android-app:preDebugAndroidTestBuild SKIPPED
+> Task :android-app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :android-app:extractProguardFiles UP-TO-DATE
+> Task :android-app:preDebugUnitTestBuild UP-TO-DATE
+> Task :android-app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :android-app:parseDebugLocalResources
+> Task :android-app:mergeDebugShaders UP-TO-DATE
+> Task :android-app:compileDebugShaders NO-SOURCE
+> Task :android-app:generateDebugAssets UP-TO-DATE
+> Task :android-app:mergeDebugAssets UP-TO-DATE
+> Task :android-app:compressDebugAssets UP-TO-DATE
+> Task :android-app:desugarDebugFileDependencies UP-TO-DATE
+> Task :android-app:mergeDebugResources
+> Task :android-app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :android-app:mergeExtDexDebug UP-TO-DATE
+> Task :android-app:mergeLibDexDebug UP-TO-DATE
+> Task :android-app:configureCMakeDebug[arm64-v8a]
+> Task :android-app:processDebugResources
+> Task :android-app:buildCMakeDebug[arm64-v8a]
+> Task :android-app:configureCMakeDebug[x86_64]
+> Task :android-app:buildCMakeDebug[x86_64]
+> Task :android-app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :android-app:validateSigningDebug UP-TO-DATE
+> Task :android-app:writeDebugAppMetadata UP-TO-DATE
+> Task :android-app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :android-app:mergeDebugNativeLibs
+> Task :android-app:processDebugAndroidTestManifest UP-TO-DATE
+> Task :android-app:generateDebugAndroidTestBuildConfig UP-TO-DATE
+> Task :android-app:checkDebugAndroidTestAarMetadata UP-TO-DATE
+> Task :android-app:mapDebugAndroidTestSourceSetPaths UP-TO-DATE
+> Task :android-app:stripDebugDebugSymbols
+> Task :android-app:generateDebugAndroidTestResources UP-TO-DATE
+> Task :android-app:mergeDebugAndroidTestResources UP-TO-DATE
+> Task :android-app:processDebugAndroidTestResources UP-TO-DATE
+> Task :android-app:javaPreCompileDebugAndroidTest UP-TO-DATE
+> Task :android-app:mergeDebugAndroidTestShaders UP-TO-DATE
+> Task :android-app:compileDebugAndroidTestShaders NO-SOURCE
+> Task :android-app:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :android-app:mergeDebugAndroidTestAssets UP-TO-DATE
+> Task :android-app:compressDebugAndroidTestAssets UP-TO-DATE
+> Task :android-app:desugarDebugAndroidTestFileDependencies UP-TO-DATE
+> Task :android-app:checkDebugAndroidTestDuplicateClasses UP-TO-DATE
+> Task :android-app:mergeExtDexDebugAndroidTest UP-TO-DATE
+> Task :android-app:mergeLibDexDebugAndroidTest UP-TO-DATE
+> Task :android-app:mergeDebugAndroidTestJniLibFolders UP-TO-DATE
+> Task :android-app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :android-app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :android-app:validateSigningDebugAndroidTest UP-TO-DATE
+> Task :android-app:writeDebugAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :android-app:compileDebugKotlin
+> Task :android-app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :android-app:bundleDebugClassesToCompileJar
+> Task :android-app:generateDebugLintReportModel
+> Task :android-app:generateDebugAndroidTestLintModel
+> Task :android-app:generateDebugUnitTestLintModel
+> Task :android-app:dexBuilderDebug
+> Task :android-app:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :android-app:processDebugJavaRes UP-TO-DATE
+> Task :android-app:mergeDebugJavaResource UP-TO-DATE
+> Task :android-app:mergeProjectDexDebug
+> Task :android-app:packageDebug
+> Task :android-app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :android-app:assembleDebug
+> Task :android-app:compileDebugAndroidTestKotlin
+> Task :android-app:compileDebugAndroidTestJavaWithJavac UP-TO-DATE
+> Task :android-app:dexBuilderDebugAndroidTest
+> Task :android-app:mergeDebugAndroidTestGlobalSynthetics UP-TO-DATE
+> Task :android-app:processDebugAndroidTestJavaRes UP-TO-DATE
+> Task :android-app:mergeDebugAndroidTestJavaResource UP-TO-DATE
+> Task :android-app:mergeProjectDexDebugAndroidTest
+> Task :android-app:packageDebugAndroidTest
+> Task :android-app:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :android-app:assembleDebugAndroidTest
+> Task :android-app:lintAnalyzeDebugUnitTest
+> Task :android-app:lintAnalyzeDebugAndroidTest
+> Task :android-app:lintAnalyzeDebug
+> Task :android-app:lintReportDebug
+> Task :android-app:lintDebug
+
+BUILD SUCCESSFUL in 1m 17s
+87 actionable tasks: 30 executed, 57 up-to-date
