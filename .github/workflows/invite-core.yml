@@ -2,6 +2,7 @@ name: Android and Tox CI
 on:
   push:
   pull_request:
+    types: [opened, synchronize, reopened, closed]
   workflow_dispatch:
 concurrency:
   group: fgchat-${{ github.event.pull_request.head.ref || github.ref_name }}
@@ -10,6 +11,7 @@ permissions:
   contents: read
 jobs:
   build-test:
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -49,6 +51,7 @@ jobs:
           if-no-files-found: error
           include-hidden-files: true
   android-35:
+    if: github.event_name != 'pull_request' || github.event.action != 'closed'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

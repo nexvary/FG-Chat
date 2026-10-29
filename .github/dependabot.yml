@@ -2,9 +2,24 @@ version: 2
 updates:
   - package-ecosystem: gradle
     directory: /
+    open-pull-requests-limit: 2
     schedule:
       interval: weekly
+    groups:
+      kotlin-toolchain:
+        patterns:
+          - 'org.jetbrains.kotlin*'
+      android-libraries:
+        patterns:
+          - 'androidx.*'
+          - 'org.jetbrains.kotlinx*'
+          - 'com.google.zxing*'
+        update-types: [minor, patch]
   - package-ecosystem: github-actions
     directory: /
+    open-pull-requests-limit: 1
     schedule:
       interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
