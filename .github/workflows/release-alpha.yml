@@ -21,7 +21,29 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_ID: ${{ github.event.workflow_run.id }}
-        run: gh run download "$RUN_ID" --name FG-Chat-debug-and-test-evidence --dir artifacts
+        run: |
+          gh run download "$RUN_ID" --name FG-Chat-debug-and-test-evidence --dir artifacts
+          gh run download "$RUN_ID" --name Android-35-instrumentation --dir instrument-evidence
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Probe public Tox network (availability experiment)
+        id: public_probe
+        continue-on-error: true
+        run: |
+          exec > public-network-probe.log 2>&1
+          python3 scripts/fetch-native.py linux-x86_64
+          cmake -S native -B native/build
+          cmake --build native/build
+          ./gradlew :tox-engine:publicNetworkProbe --no-daemon
+      - name: Keep public network experiment result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Public-Tox-network-probe
+          path: public-network-probe.log
       - name: Publish prerelease
         env:
           GH_TOKEN: ${{ github.token }}
@@ -31,5 +53,6 @@ jobs:
           cp artifacts/android-app/build/outputs/apk/debug/android-app-debug.apk FG-Chat-debug.apk
           cp artifacts/.native-deps/c-toxcore-v0.2.23.tar.gz .
           cp artifacts/.native-deps/libsodium-1.0.22.tar.gz .
-          sha256sum FG-Chat-debug.apk c-toxcore-v0.2.23.tar.gz libsodium-1.0.22.tar.gz > SHA256SUMS
-          gh release create "v0.1.0-alpha.$BUILD_NUMBER" FG-Chat-debug.apk c-toxcore-v0.2.23.tar.gz libsodium-1.0.22.tar.gz SHA256SUMS --target "$BUILD_SHA" --prerelease --title "FG Chat Android messaging alpha $BUILD_NUMBER" --notes-file docs/ALPHA-RELEASE-NOTES.md
+          cp instrument-evidence/evidence/android-35/fgchat-test-evidence/*.png .
+          sha256sum chats-ar.png chats-en.png identity-ar.png identity-en.png FG-Chat-debug.apk c-toxcore-v0.2.23.tar.gz libsodium-1.0.22.tar.gz > SHA256SUMS
+          gh release create "v0.1.0-alpha.$BUILD_NUMBER" FG-Chat-debug.apk c-toxcore-v0.2.23.tar.gz libsodium-1.0.22.tar.gz SHA256SUMS public-network-probe.log chats-ar.png chats-en.png identity-ar.png identity-en.png --target "$BUILD_SHA" --prerelease --title "FG Chat Android messaging alpha $BUILD_NUMBER" --notes-file docs/ALPHA-RELEASE-NOTES.md

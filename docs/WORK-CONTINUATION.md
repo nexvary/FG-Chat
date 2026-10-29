@@ -1,7 +1,7 @@
 # Work continuation — 2026-10-29
 
 Base commit: 725c65fb6c34ab6bf6266163d955cfc2f3a0310f (main at initial inspection).
-Working branch: fgchat-android-tox-alpha. Verified source checkpoint 5ea5fb34ddbaa9ca35eada33dfd298835b26a241; screenshot collection fix pending. PR #1: https://github.com/nexvary/FG-Chat/pull/1
+Working branch: fgchat-android-tox-alpha. Verified application/test checkpoint 4d080e64239e5f8307c74d7deb08b8a4a757523c; release/evidence workflow changes follow this checkpoint. PR #1: https://github.com/nexvary/FG-Chat/pull/1
 Find final exact revision with `git rev-parse HEAD`; this file cannot contain the hash of the commit that contains itself.
 
 ## Repository audit
@@ -20,11 +20,11 @@ Root Gradle build/wrapper, android-app application/Keystore vault/Compose UI/Eng
 - Initial Android debug APK assembled successfully (before source-built 16-KB native replacement).
 - Source-built Android c-toxcore 0.2.23 with libsodium 1.0.22 built for arm64/x86_64; ELF 16-KB alignment verified, APK zipalign -P16 and v2 signature verification passed.
 - Updated APK + instrumentation APK build and Android lint passed (no lint issues). OSV scan of 85 resolved Android runtime Maven artifacts returned 0 vulnerability records (not a native/build/test audit).
-- Local Android35 software emulator boot timed out after 600s (no KVM here); no UI test/screenshot claim from local run. GitHub KVM instrumentation passed all 3 tests: UI/Arabic/navigation/recreation, native Android loopback messaging, Keystore tamper rejection. Run https://github.com/nexvary/FG-Chat/actions/runs/40764718624. Screenshot export was empty despite passing tests; collection fix and explicit four-image gate added.
+- Local Android35 software emulator boot timed out after 600s (no KVM here); no UI test/screenshot claim from local run. GitHub KVM instrumentation passed all 3 tests: UI/Arabic/navigation/recreation, native Android loopback messaging, Keystore tamper rejection. Run https://github.com/nexvary/FG-Chat/actions/runs/40764718624. Screenshot export was empty in that older run. Fixed in 4d080e6 using separate shell commands and an explicit four-image collection gate. All three API35 tests and all four real PNG exports passed in https://github.com/nexvary/FG-Chat/actions/runs/40799130814; images inspected visually (Arabic RTL and English).
 - Optional public network probe failed: peerA=false, peerB=false, friendsReady=false after 60s. Public-node reachability is unproven from this environment. Run `./gradlew :tox-engine:publicNetworkProbe` on an unrestricted network.
 - No physical-device/cross-network/battery/Windows/security-audit claims.
 
-Evidence is in evidence/2026-10-28. Update this checkpoint with final additional results before finishing.
+Evidence is in evidence/2026-10-28 and evidence/2026-10-29; full reports and four actual PNGs are in Actions artifact Android-35-instrumentation (run 40799130814). The release workflow preserves screenshots as release assets.
 
 ## Reproduce / build
 
@@ -35,7 +35,7 @@ UI: clean disposable API35 x86_64 emulator, `./gradlew :android-app:connectedDeb
 
 ## Next priorities
 
-1. Validate the screenshot collection fix, inspect all four actual screenshots, merge verified alpha and publish the test APK with native corresponding sources. Physical phone test still required.
+1. Publish the verified alpha after main CI passes, including APK, four real screenshots, exact native sources and best-effort public-network probe log. The release workflow is a real running mechanism; inspect its result. Physical phone test still required.
 2. Two Android phones (Wi-Fi/mobile/CGNAT, IPv4/IPv6, public relay fallback), record timing/offline/race/battery/lifecycle tests; compare native upstream handshake hardening before wider testing.
 3. Add protocol-level app accepted-message acknowledgments and receipt generation scoping, stronger invitation validation UX; data persistence rollback/fault-injection tests.
 4. Independent app root/device authorization using reviewed standard formats/library; QR authenticated transfer with confirmation and atomic activation/rollback, encrypted export; do not duplicate live Tox keys.

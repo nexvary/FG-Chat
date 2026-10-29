@@ -8,4 +8,6 @@ Development-signed APK, not a production release. Build-to-build debug signing k
 
 No calls/media/files, multi-device, account transfer, rotating/one-time short invitations, signed mutual deletion, Tor, background service/notifications or Windows app. Direct peers may see IP; network timing metadata remains. Tox is experimental and has not had a complete independent security audit. “Transport received” is not a human read receipt. In-flight packets may arrive during undetected short interruptions; no app outbox/mailbox/automatic retry exists.
 
+The attached public-network-probe.log records a separate best-effort experiment using public bootstrap/relay nodes. The two peers run on one host; success would not prove physical-phone or cellular/CGNAT compatibility. A failed experiment is retained, not counted as successful verification.
+
 GPL-3.0-or-later. FG Chat corresponding source is the release tag's source archive; exact native source archives accompany the APK. Build instructions and third-party notices are in the repository.
