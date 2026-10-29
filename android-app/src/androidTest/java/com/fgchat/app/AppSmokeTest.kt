@@ -31,7 +31,12 @@ class AppSmokeTest {
                 })
             }
             rule.waitUntil(15000) {rule.onAllNodesWithText(invitation).fetchSemanticsNodes().isNotEmpty()}
-            org.junit.Assert.assertSame("Warm invitation must reuse the existing identity owner",activityBeforeInvite,rule.activity)
+            rule.runOnUiThread {
+                val active=androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry.getInstance()
+                    .getActivitiesInStage(androidx.test.runner.lifecycle.Stage.RESUMED).filterIsInstance<MainActivity>()
+                org.junit.Assert.assertEquals("Exactly one identity owner must be resumed",1,active.size)
+                org.junit.Assert.assertSame("Warm invitation must reuse the active identity owner",activityBeforeInvite,active.single())
+            }
         }
         openInvitation()
         rule.onNodeWithTag("nav_chats").performClick()
