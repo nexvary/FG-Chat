@@ -24,7 +24,7 @@ jobs:
         run: |
           gh run download "$RUN_ID" --name FG-Chat-debug-and-test-evidence --dir artifacts
           gh run download "$RUN_ID" --name Android-35-instrumentation --dir instrument-evidence
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '17'
