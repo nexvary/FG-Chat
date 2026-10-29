@@ -1,0 +1,56 @@
+{
+  "release": "v0.1.0-alpha.49",
+  "source_commit": "57925741978b698937077fb6ad2055e8fa65163c",
+  "apk_size": 18302827,
+  "sha256": "c28dd22d238ab35bfdb1b5e297d134ac1955849e22f0eacdac9a4eca1661019a",
+  "native_libraries": [
+    {
+      "path": "lib/arm64-v8a/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "lib/arm64-v8a/libfgtox.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "lib/arm64-v8a/libtoxcore.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "lib/x86_64/libandroidx.graphics.path.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "lib/x86_64/libfgtox.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "path": "lib/x86_64/libtoxcore.so",
+      "load_alignment": [
+        16384,
+        16384,
+        16384
+      ]
+    }
+  ]
+}
